@@ -25,3 +25,8 @@ QMAKE_INSTALL_PROGRAM = install -m 4755 -p
 
 target.path = /usr/bin
 INSTALLS += target
+
+DISTFILES += \
+    change_light1000.sh \
+    change_light2000.sh \
+    change_light3000.sh
