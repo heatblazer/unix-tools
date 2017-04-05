@@ -1,6 +1,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /// strchr2 returns match after
 /// a given count not like
@@ -21,4 +24,8 @@ const char *strchr2(const char* str, char c, int count);
 /// \return array of char arrays
 char** split(const char* str, char delimiter, int* ret_size);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif // UTILS_H

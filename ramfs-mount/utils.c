@@ -11,28 +11,54 @@ static int aux_strlen(const char* str)
     return size;
 }
 
+// bug with the delimiter logic - Fixed it after very big string test!
 static char* aux_slice(const char* str, char delimiter, const char** pRet)
 {
-    int size = 0;
+    int size = 0, i = 0;
     const char* begin = str;
-    while (*begin != delimiter) {
+    char  *ret = NULL;
+    int match = 0;
+
+    if (!str) {
+        return NULL;
+    }
+
+    while (*begin != '\0') {
+        if (*begin == delimiter) {
+            match++;
+            break;
+        }
         size++;
         begin++;
     }
-    char* ret = malloc(sizeof(char) * size);
+
+    ret = (char*)malloc(sizeof(char) * size);
+
     if(ret == NULL) {
         return NULL;
     }
-    int i;
-    for(i = 0; str[i] != delimiter; ++i) {
-        ret[i] = str[i];
-    }
-    ret[i] = '\0';
 
-    while (*begin == delimiter) {
-        begin++;
+    if (match) {
+        /* we have a delimiter ??? */
+        for(i = 0; str[i] != delimiter; ++i) {
+            ret[i] = str[i];
+        }
+
+        ret[i] = '\0';
+
+        while (*begin == delimiter) {
+            begin++;
+        }
+        (*pRet) = begin;
+
+    } else {
+        /* or we just copy the remaining string.... */
+        for(i=0; str[i] != '\0'; ++i) {
+            ret[i] = str[i];
+        }
+        ret[i] = '\0';
+        (*pRet) = NULL;
     }
-    (*pRet) = begin;
 
     return ret;
 }
@@ -49,7 +75,6 @@ const char* strchr2(const char* str, char c, int count)
         }
     }
     return it;
-
 }
 
 
@@ -74,7 +99,7 @@ char **split(const char *str, char delimiter, int *ret_size)
     }
     splits += 1;
     *ret_size = splits;
-    char** split_str = malloc(sizeof(char**)*splits);
+    char** split_str = (char**)malloc(sizeof(char**)*splits);
 
     if (split_str == NULL) {
         return NULL;
