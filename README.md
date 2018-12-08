@@ -1,6 +1,5 @@
 Helper tools for builds
 
-=========================================
 ramfsmounter - mount your project directory to RAMFS good for not scratching the SSD
 
 topme - monitor all threads per PID - helper python script
