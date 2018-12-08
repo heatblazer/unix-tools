@@ -63,6 +63,8 @@ int main(int argc, char* argv[])
 {
     (void) argc; // unused
     // avoid compile warinings for unised
+#if 0
+
     register_exit_callback(dummy_at_exit);
     bool matched_result = false;
 
@@ -129,7 +131,22 @@ int main(int argc, char* argv[])
     } else {
         printf("Dude you are ok!\n");
     }
+#else
+    int size = 0, it = 0;
+    char** splits = split("setBoiler=temp,83;timer,5;mood,eco;\r\n", '=', &size);
+    char** split2 = split(splits[1], ';', &size);
+    for(it = 0; it < size; it++) {
+        int tmpsz = 0, j = 0;
+        char** tmp = split(split2[it], ',', &tmpsz);
+        puts("[");
+        while (j < tmpsz) {
+            printf("\t%s\n", tmp[j]);
+            j++;
+        }
+        puts("]");
+    }
 
+#endif
     return 0;
 }
 

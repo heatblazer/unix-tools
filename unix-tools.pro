@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     ramfs-mount \
-    brightness-level
+    brightness-level \
+    readmegen
