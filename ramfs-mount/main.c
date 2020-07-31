@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
 {
     (void) argc; // unused
     // avoid compile warinings for unised
-#if 0
+#if 1
 
     register_exit_callback(dummy_at_exit);
     bool matched_result = false;
